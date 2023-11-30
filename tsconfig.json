@@ -18,8 +18,7 @@
     "baseUrl": "./",
     "incremental": true,
     "skipLibCheck": true,
-    "types": [
-      "bun-types",
-    ]
-  }
+    "types": ["bun-types"]
+  },
+  "include": ["src"]
 }
