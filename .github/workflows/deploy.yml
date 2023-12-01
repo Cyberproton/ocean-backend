@@ -20,6 +20,6 @@ jobs:
           port: ${{ secrets.DEPLOY_PORT }}
           script: |
             docker ps -q --filter "name=ocean-backend" | grep -q . && docker stop ocean-backend && docker rm -fv ocean-backend
-            docker image prune
+            docker image prune -f
             docker pull cyberproton/ocean-backend:latest
             docker run --name ocean-backend --env-file=.env -p 3000:3000 -tid cyberproton/ocean-backend

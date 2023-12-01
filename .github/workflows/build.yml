@@ -21,6 +21,6 @@ jobs:
           push: true
           tags: |
             cyberproton/ocean-backend:latest
-            cyberproton/ocean-backend:${{ github.run_number }}
+            cyberproton/ocean-backend:${{ github.run_id }}
           cache-from: type=gha
           cache-to: type=gha,mode=max

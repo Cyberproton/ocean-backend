@@ -20,7 +20,7 @@ Commands:
 
 ```bash
 # development
-$ bun run start
+$ bun run start:dev
 
 # production mode
 $ bun run start:prod
