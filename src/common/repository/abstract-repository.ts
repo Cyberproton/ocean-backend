@@ -1,7 +1,8 @@
 import { Prisma } from '@prisma/client';
 import { UniqueConstraintException } from '../exception';
+import { requireNonNull } from '../util';
 
-export class AbstractRepository<T> {
+export class AbstractRepository {
   protected returnOrThrow<T>(func: () => T): T {
     try {
       return func();
@@ -14,7 +15,9 @@ export class AbstractRepository<T> {
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       switch (error.code) {
         case 'P2002':
-          return new UniqueConstraintException(error.meta!.target as string);
+          return new UniqueConstraintException(
+            requireNonNull(error.meta).target as string,
+          );
         default:
           return error;
       }

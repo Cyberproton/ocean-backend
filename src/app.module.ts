@@ -10,11 +10,12 @@ import {
   ResponseInterceptor,
 } from './common/interceptor';
 import { globalPipe } from './common/pipe';
+import { FileModule } from './file/file.module';
 import { RoleModule } from './role/role.module';
 import { UserModule } from './user/user.module';
 
 @Module({
-  imports: [AuthModule, CommonModule, RoleModule, UserModule],
+  imports: [AuthModule, CommonModule, FileModule, RoleModule, UserModule],
   providers: [
     {
       provide: APP_FILTER,

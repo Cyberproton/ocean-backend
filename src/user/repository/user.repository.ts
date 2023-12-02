@@ -5,7 +5,7 @@ import { CreateUserDto } from '../dto';
 import { User } from '../model';
 
 @Injectable()
-export class UserRepository extends AbstractRepository<User> {
+export class UserRepository extends AbstractRepository {
   constructor(private readonly prisma: PrismaService) {
     super();
   }

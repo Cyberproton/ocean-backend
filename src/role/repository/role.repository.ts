@@ -4,7 +4,7 @@ import { PrismaService } from 'src/prisma/service';
 import { RoleModel } from '../model';
 
 @Injectable()
-export class RoleRepository extends AbstractRepository<RoleModel> {
+export class RoleRepository extends AbstractRepository {
   constructor(private readonly prisma: PrismaService) {
     super();
   }
