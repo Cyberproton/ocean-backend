@@ -34,6 +34,21 @@ CREATE TABLE "UserRole" (
     CONSTRAINT "UserRole_pkey" PRIMARY KEY ("userId","roleId")
 );
 
+-- CreateTable
+CREATE TABLE "File" (
+    "id" CHAR(21) NOT NULL,
+    "name" TEXT NOT NULL,
+    "mimetype" TEXT,
+    "path" TEXT NOT NULL,
+    "size" INTEGER NOT NULL,
+    "sizeUnit" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP,
+    "createdBy" INTEGER NOT NULL,
+
+    CONSTRAINT "File_pkey" PRIMARY KEY ("id")
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "User_username_key" ON "User"("username");
 
@@ -51,4 +66,7 @@ ALTER TABLE "UserRole" ADD CONSTRAINT "UserRole_userId_fkey" FOREIGN KEY ("userI
 
 -- AddForeignKey
 ALTER TABLE "UserRole" ADD CONSTRAINT "UserRole_roleId_fkey" FOREIGN KEY ("roleId") REFERENCES "Role"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "File" ADD CONSTRAINT "File_createdBy_fkey" FOREIGN KEY ("createdBy") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
