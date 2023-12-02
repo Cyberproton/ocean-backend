@@ -1,15 +1,7 @@
 import { ConfigType, registerAs } from '@nestjs/config';
 import { IsString, IsUrl } from 'class-validator';
-
-export const fileConfig = registerAs('file', () => ({
-  endpoint: process.env.FILE_ENDPOINT || '',
-  region: process.env.FILE_REGION || '',
-  accessKey: process.env.FILE_ACCESS_KEY || '',
-  secretKey: process.env.FILE_SECRET_KEY || '',
-  bucket: process.env.FILE_BUCKET || '',
-}));
-
-export type FileConfig = ConfigType<typeof fileConfig>;
+import { validateConfig } from 'src/common/config';
+import { requireNonNull } from 'src/common/util';
 
 export class FileConfigValidationSchema {
   @IsUrl()
@@ -27,3 +19,17 @@ export class FileConfigValidationSchema {
   @IsString()
   FILE_BUCKET: string;
 }
+
+export const fileConfig = registerAs('file', () => {
+  validateConfig(FileConfigValidationSchema, process.env);
+
+  return {
+    endpoint: requireNonNull(process.env.FILE_ENDPOINT),
+    region: requireNonNull(process.env.FILE_REGION),
+    accessKey: requireNonNull(process.env.FILE_ACCESS_KEY),
+    secretKey: requireNonNull(process.env.FILE_SECRET_KEY),
+    bucket: requireNonNull(process.env.FILE_BUCKET),
+  };
+});
+
+export type FileConfig = ConfigType<typeof fileConfig>;
