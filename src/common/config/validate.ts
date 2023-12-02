@@ -1,25 +1,20 @@
 import { ClassConstructor, plainToInstance } from 'class-transformer';
 import { validateSync } from 'class-validator';
 
-export type ConfigValidationOptions = {
-  cls: ClassConstructor<object>;
-  config: Record<string, unknown>;
-};
-
 export const validateMany = (
-  classes: ClassConstructor<object>[],
+  schemaClasses: ClassConstructor<object>[],
   config: Record<string, unknown>,
 ) => {
-  const res = classes.map((cls) => validate(cls, config));
+  const res = schemaClasses.map((cls) => validateConfig(cls, config));
   // Merge all configs into one
   return Object.assign({}, ...res);
 };
 
-export const validate = (
-  cls: ClassConstructor<object>,
+export const validateConfig = (
+  schemaClass: ClassConstructor<object>,
   config: Record<string, unknown>,
 ) => {
-  const validatedConfig = plainToInstance(cls, config, {
+  const validatedConfig = plainToInstance(schemaClass, config, {
     enableImplicitConversion: true,
   });
   const errors = validateSync(validatedConfig, {

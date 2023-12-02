@@ -1,5 +1,4 @@
 import {
-  ClassSerializerInterceptor,
   Controller,
   Get,
   MaxFileSizeValidator,
@@ -14,12 +13,13 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 
 import { Public } from 'src/auth/decorator';
+import { AppClassSerializerInterceptor } from 'src/common/interceptor';
 import { ReqContext, RequestContext } from 'src/common/request-context';
 import { FileQueryDto } from '../dto';
 import { UploadFileOutputDto } from '../dto/upload-file-output.dto';
 import { FileService } from '../service';
 
-@UseInterceptors(ClassSerializerInterceptor)
+@UseInterceptors(AppClassSerializerInterceptor)
 @Controller('files')
 export class FileController {
   constructor(private readonly fileService: FileService) {}
